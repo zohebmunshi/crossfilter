@@ -31,8 +31,15 @@ function heap_by(f) {
         x = f(d),
         child;
     while ((child = i << 1) <= n) {
-      if (child < n && f(a[lo + child]) > f(a[lo + child + 1])) child++;
-      if (x <= f(a[lo + child])) break;
+      var childValue = f(a[lo + child]);
+      if (child < n) {
+        var nextChildValue = f(a[lo + child + 1]);
+        if (childValue > nextChildValue) {
+          child++;
+          childValue = nextChildValue;
+        }
+      }
+      if (x <= childValue) break;
       a[lo + i] = a[lo + child];
       i = child;
     }
